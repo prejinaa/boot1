@@ -1,10 +1,14 @@
 package com.javainuse.bootmysqlcrud.controller;
 
+
 import java.util.Objects;
 
 import com.javainuse.bootmysqlcrud.config.JwtRequest;
 import com.javainuse.bootmysqlcrud.config.JwtResponse;
 import com.javainuse.bootmysqlcrud.config.JwtTokenUtil;
+import com.javainuse.bootmysqlcrud.entity.User;
+
+import com.javainuse.bootmysqlcrud.repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -14,10 +18,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.*;
 
 
 @RestController
@@ -31,6 +33,28 @@ public class JwtAuthenticationController {
 
     @Autowired
     private UserDetailsService userDetailsService;
+    @Autowired
+    private UserRepo userRepo;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @PostMapping("/register")
+    public ResponseEntity<?> registerUser(@RequestBody User user) {
+        User existingUser = userRepo.findByUsername(user.getUsername());
+        if (existingUser != null) {
+            return ResponseEntity.badRequest().body("Username already exists");
+        }
+
+        User newuser = new User();
+        newuser.setUsername(user.getUsername());
+        newuser.setPassword(passwordEncoder.encode(user.getPassword()));
+        newuser.setRole("ROLE_ADMIN"); // Set default role for new users
+
+        userRepo.save(newuser);
+        return ResponseEntity.ok("User registered successfully");
+    }
+
 
     @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
     public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
