@@ -40,6 +40,7 @@ public class JwtAuthenticationController {
     private PasswordEncoder passwordEncoder;
 
     @PostMapping("/register")
+
     public ResponseEntity<?> registerUser(@RequestBody User user) {
         User existingUser = userRepo.findByUsername(user.getUsername());
         if (existingUser != null) {
@@ -49,7 +50,7 @@ public class JwtAuthenticationController {
         User newuser = new User();
         newuser.setUsername(user.getUsername());
         newuser.setPassword(passwordEncoder.encode(user.getPassword()));
-        newuser.setRole("ROLE_ADMIN"); // Set default role for new users
+        newuser.setRole("ROLE_USER"); // Set default role for new users
 
         userRepo.save(newuser);
         return ResponseEntity.ok("User registered successfully");

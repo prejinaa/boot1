@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 public class UserController {
 
+
     @GetMapping("/admin")
     public String adminEndpoint() {
         return "Hello Admin";

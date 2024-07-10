@@ -51,8 +51,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 	
 	@Override
-	public EmployeeDto updateEmployee(EmployeeDto employeeDto) throws EmployeeNotFoundException {
-		Optional<Employee> retrievedEmployee = employeeRepository.findById(employeeDto.getId());
+	public EmployeeDto updateEmployee(EmployeeDto employeeDto,Long employeeId) throws EmployeeNotFoundException {
+		Optional<Employee> retrievedEmployee = employeeRepository.findById(employeeId);
 		if (retrievedEmployee.isEmpty()) {
 			throw new EmployeeNotFoundException("Employee with id - " + employeeDto.getId() + " not found.");
 		}

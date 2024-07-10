@@ -22,6 +22,7 @@ import java.util.stream.Collectors;
 public class JwtUserDetailsService implements UserDetailsService {
     @Autowired
     private UserRepo userRepo;
+    // loading user details from a data source from database based on the username and create user detail object and compare yhe user password with user detail object password to authenticate
 
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepo .findByUsername(username);

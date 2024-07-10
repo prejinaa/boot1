@@ -16,6 +16,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 @Component
+//the first request of user hit this class and it check if user is hitting the login with token or without token
 
 public class JwtRequestFilter extends OncePerRequestFilter {
     @Autowired

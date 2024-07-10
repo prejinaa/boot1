@@ -10,6 +10,7 @@ public interface EmployeeService {
 	EmployeeDto getEmployeeById(Long employeeId) throws EmployeeNotFoundException;
 	List<EmployeeDto> getEmployees();
 	void deleteEmployee(Long employeeId) throws EmployeeNotFoundException;
-	EmployeeDto updateEmployee(EmployeeDto employeeDto) throws EmployeeNotFoundException;
 
+
+	EmployeeDto updateEmployee(EmployeeDto employeeDto, Long employeeId) throws EmployeeNotFoundException;
 }

@@ -48,10 +48,10 @@ public class EmployeeController {
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 	
-	@PutMapping(value = "/employee")
-	public ResponseEntity<EmployeeDto> updateEmployee(@RequestBody EmployeeDto employeeDto)
+	@PutMapping( "/{employeeId}")
+	public ResponseEntity<EmployeeDto> updateEmployee(@PathVariable Long employeeId,@RequestBody EmployeeDto employeeDto)
 			throws EmployeeNotFoundException {
-		EmployeeDto createdEmployee = employeeService.updateEmployee(employeeDto);
+		EmployeeDto createdEmployee = employeeService.updateEmployee(employeeDto, employeeId);
 		return new ResponseEntity<>(createdEmployee, HttpStatus.OK);
 	}
 }

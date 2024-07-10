@@ -1,13 +1,13 @@
 package com.javainuse.bootmysqlcrud.config;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.io.Serial;
 import java.io.Serializable;
 
 @Setter
 @Getter
+@RequiredArgsConstructor
 public class JwtRequest implements Serializable {
 
     @Serial
@@ -17,12 +17,12 @@ public class JwtRequest implements Serializable {
     private String password;
 
     //need default constructor for JSON Parsing
-    public JwtRequest(){
-    }
-
-    public JwtRequest(String username, String password) {
-        this.setUsername(username);
-        this.setPassword(password);
-    }
+//    public JwtRequest(){
+//    }
+//
+//    public JwtRequest(String username, String password) {
+//        this.setUsername(username);
+//        this.setPassword(password);
+//    }
 
 }
